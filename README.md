@@ -11,7 +11,7 @@
   <a href="#" target="_blank"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
 </p>
 
-This cloud manufacturing portal is a complementary customer-facing cloud interface for the **[`opcua_fusion`](https://github.com/roshbeng/opcua_fusion.git)** system, allowing customers to register, submit detailed manufacturing quotes, and track the real-time status of their requests.
+This cloud manufacturing portal is a complementary customer-facing cloud interface for the **[`opcua_fusion`](https://github.com/roshbeng/opcua_fusion.git)** application, allowing customers to register, submit detailed manufacturing quotes, and track the real-time status of their requests.
 
 ---
 
@@ -19,7 +19,7 @@ This cloud manufacturing portal is a complementary customer-facing cloud interfa
 
 The **OPC-UA Fusion Cloud Portal** is a Django-based web application for cloyd manufacturing serving as the primary point of contact for customers. It provides a user-friendly interface for submitting manufacturing jobs.
 
-Data and files submitted through this portal are stored in **Google Firebase** (Firestore and Cloud Storage). This cloud backend is then accessed by the **[`opcua_fusion`](https://github.com/roshbeng/opcua_fusion.git)** system—an on-premise service that interfaces with manufacturing hardware via OPC UA. The `opcua_fusion` system processes quotes, runs jobs, and updates the status back to the cloud, which clients can view on their dashboard.
+Data and files submitted through this portal are stored in **Google Firebase** (Firestore and Cloud Storage). This cloud backend is then accessed by the **[`opcua_fusion`](https://github.com/roshbeng/opcua_fusion.git)** system—an on-premise service that interfaces with manufacturing hardware via OPC UA. The `opcua_fusion` application processes quotes, runs jobs, and updates the status back to the cloud, which clients can view on their dashboard.
 
 ## 📸 User Interface Preview
 
