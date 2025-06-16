@@ -3,22 +3,21 @@
 <p align="center">
   The customer-facing web application for the <strong>Industry 4.0 Manufacturing Lab</strong>.
 </p>
-
 <p align="center">
-    ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
-    ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-    ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+  <a href="https://www.djangoproject.com/" target="_blank"><img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django"></a>
+<a href="https://www.python.org/" target="_blank"><img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+<a href="https://firebase.google.com/" target="_blank"><img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase"></a>
   <a href="https://render.com/" target="_blank"><img src="https://img.shields.io/badge/Render-Deploy-46E3B7.svg?logo=render&logoColor=white" alt="Render Deploy"></a>
   <a href="#" target="_blank"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
 </p>
 
-This portal is a complementary cloud interface for the `opcua_fusion` system, allowing clients to register, submit detailed manufacturing quotes, and track the real-time status of their requests.
+This cloud manufacturing portal is a complementary customer-facing cloud interface for the **[`opcua_fusion`](https://github.com/roshbeng/opcua_fusion.git)** system, allowing customers to register, submit detailed manufacturing quotes, and track the real-time status of their requests.
 
 ---
 
 ## 🗺️ System Overview
 
-The **OPC-UA Fusion Cloud Portal** is a Django-based web application serving as the primary point of contact for clients. It provides a user-friendly interface for submitting manufacturing jobs.
+The **OPC-UA Fusion Cloud Portal** is a Django-based web application for cloyd manufacturing serving as the primary point of contact for customers. It provides a user-friendly interface for submitting manufacturing jobs.
 
 Data and files submitted through this portal are stored in **Google Firebase** (Firestore and Cloud Storage). This cloud backend is then accessed by the **[`opcua_fusion`](https://github.com/roshbeng/opcua_fusion.git)** system—an on-premise service that interfaces with manufacturing hardware via OPC UA. The `opcua_fusion` system processes quotes, runs jobs, and updates the status back to the cloud, which clients can view on their dashboard.
 
