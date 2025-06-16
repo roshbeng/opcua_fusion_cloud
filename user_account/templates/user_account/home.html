@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industry 4.0 Manufacturing Lab</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'user_account/css/styles.css' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">Industry 4.0 Manufacturing Lab</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'guide' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'guide' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'guide' %}">Research</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'guide' %}">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'dashboard' %}" class="btn btn-primary nav-link ms-lg-2">Submit a Quote</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid bg-light text-dark py-5 mt-5">
+    <div class="container text-center">
+        <h3 class="mb-4"><strong>Welcome to the Future of Manufacturing</strong></h3>
+        <p>Our lab is at the forefront of Industry 4.0 technologies, driving innovation in smart manufacturing.</p>
+
+        <h3 class="mt-5 mb-4"><strong>Our Manufacturing History</strong></h3>
+        <ul class="list-group list-group-flush text-start mx-auto" style="max-width: 600px;">
+            <li class="list-group-item">Over 100 successful industry collaborations in the past decade</li>
+            <li class="list-group-item">Pioneers in integrating AI with cyber-physical systems for production</li>
+            <li class="list-group-item">Specialized in human-robot collaborative manufacturing</li>
+            <li class="list-group-item">Leading research in cloud-based manufacturing solutions</li>
+            <li class="list-group-item">Optimizing workflows with data-driven insights and real-time analytics</li>
+            <li class="list-group-item">Utilizing cutting-edge 3D printing technologies</li>
+            <li class="list-group-item">Expertise in industrial IoT and predictive maintenance</li>
+            <li class="list-group-item">Implementing sustainable and green manufacturing practices</li>
+        </ul>
+
+        <h3 class="mt-5 mb-4"><strong>Give Us a Quote!</strong></h3>
+        {% if request.session.is_logged_in %}
+            <p>You are logged in</p>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+            <br><br>
+            <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+        {% else %}
+            <p>If you're looking for collaboration opportunities or need a custom solution</p>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary">Submit Quote</a>
+        {% endif %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

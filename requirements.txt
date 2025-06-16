@@ -1,0 +1,14 @@
+# Django Framework
+Django
+
+# Firebase Integration
+firebase-admin
+
+# Production Web Server
+gunicorn
+
+# Serving Static Files in Production
+whitenoise
+
+# Environment Variable Management
+python-dotenv

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    {% load static %}
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <!-- Header with Logout Option -->
+    <div class="container-fluid bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+      <h2 class="m-0">Dashboard</h2>
+      <div>
+        <a href="{% url 'home' %}" class="btn btn-secondary me-2">Go to Home</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      </div>
+    </div>
+
+    <!-- Welcome Message and Quote Request Button -->
+    <div class="container my-5">
+      <div class="row">
+        <div class="col text-center">
+          <h3>Welcome, {{ name }}!</h3>
+          <div class="my-3">
+            <a href="{% url 'quote_request' %}" class="btn btn-primary btn-lg">Place a Request or Quote</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quote Requests List -->
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Title</th>
+              <th hidden>Request Timestamp (UTC)</th>
+              <th>Request Timestamp (Local)</th>
+              <th>Status</th>
+              <th hidden>Finish Timestamp (UTC)</th>
+              <th>Finish Timestamp (Local)</th>
+              <th>Report</th>
+              <th>Download File</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if quote_requests %} {% for quote in quote_requests %}
+            <tr>
+              <td>{{ quote.title }}</td>
+
+              <!-- Formatted Request Timestamp (UTC and Local) -->
+              <td hidden>
+                <span class="utc-timestamp">{{ quote.request_timestamp|date:"Y-m-d H:i:s" }}</span>
+              </td>
+              <td>
+                <span
+                  class="local-timestamp"
+                  data-utc="{{ quote.request_timestamp|date:'Y-m-d H:i:s' }}"
+                ></span>
+              </td>
+
+              <td>{{ quote.status|default:"Pending" }}</td>
+
+              <!-- Finish Timestamp (UTC and Local) -->
+              <td hidden>
+                {% if quote.finish_timestamp %}
+                <span class="utc-timestamp">{{ quote.finish_timestamp|date:"Y-m-d H:i:s" }}</span>
+                {% else %} Not Complete {% endif %}
+              </td>
+              <td>
+                {% if quote.finish_timestamp %}
+                <span
+                  class="local-timestamp"
+                  data-utc="{{ quote.finish_timestamp|date:'Y-m-d H:i:s' }}"
+                ></span>
+                {% else %} Not Complete {% endif %}
+              </td>
+
+              <td>
+                {% if quote.report %}
+                <a href="{{ quote.report }}" class="btn btn-outline-primary btn-sm" download>
+                  Download Report
+                </a>
+                {% else %} Not Ready Yet {% endif %}
+              </td>
+              <td>
+                <a href="{{ quote.file_url }}" class="btn btn-outline-primary btn-sm" download>
+                  Download Files
+                </a>
+              </td>
+              <td>
+                <a href="{% url 'quote_request_info' quote.id %}" class="btn btn-info btn-sm">View Quote</a>
+              </td>
+            </tr>
+            {% endfor %} {% else %}
+            <tr>
+              <td colspan="9" class="text-center">No quote requests found.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- JavaScript to Convert UTC Timestamps to Local Time -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Function to convert UTC timestamp to local time
+      function convertToLocalTime() {
+        var localTimestamps = document.querySelectorAll(".local-timestamp");
+        localTimestamps.forEach(function (element) {
+          var utcTimestamp = element.getAttribute("data-utc");
+          if (utcTimestamp) {
+            var utcDate = new Date(utcTimestamp + " UTC"); // Ensure it's treated as UTC
+            var localDate = utcDate.toLocaleString();
+            element.innerText = localDate;
+          }
+        });
+      }
+
+      // Call the function on page load
+      convertToLocalTime();
+    </script>
+  </body>
+</html>

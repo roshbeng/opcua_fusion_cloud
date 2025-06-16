@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Quote Request Details</title>
+    {% load static %}
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+</head>
+<body class="container py-5">
+    <!-- Header with Back to Dashboard Link -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Quote Request Details</h2>
+      <div>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary me-2">Back to Dashboard</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      </div>
+    </div>
+
+    <!-- Quote Details -->
+    <div class="card p-4">
+      <h3>{{ quote.title }}</h3>
+      <p><strong>Description:</strong> {{ quote.description }}</p>
+      {% if quote.gcode %}
+      <p><strong>G-code:</strong> {{ quote.gcode }}</p>
+      {% endif %}
+
+      <!-- Displaying the remaining fields -->
+      <p><strong>Quantity:</strong> {{ quote.quantity }}</p>
+      <p><strong>Design Units:</strong> {{ quote.design_units }}</p>
+      <p><strong>Material:</strong> {{ quote.material }}</p>
+      {% if quote.material == "Aluminum" and quote.aluminum_type %}
+      <p><strong>Type of Aluminum:</strong> {{ quote.aluminum_type }}</p>
+      {% endif %}
+      <p><strong>Surface Finish:</strong> {{ quote.surface_finish }}</p>
+      <p><strong>Tolerance:</strong> {{ quote.tolerance }}</p>
+
+      <!-- Technical Drawing -->
+      {% if quote.technical_drawing_url %}
+      <p>
+        <strong>Technical Drawing:</strong>
+        <a href="{{ quote.technical_drawing_url }}" class="btn btn-primary" download>Download Technical Drawing</a>
+      </p>
+      {% endif %}
+
+      <!-- Request Timestamp (UTC and Local) -->
+      <p hidden>
+        <strong>Request Timestamp (UTC):</strong>
+        <span id="request-utc-timestamp">{{ quote.request_timestamp|date:"Y-m-d H:i:s" }}</span>
+      </p>
+      <p>
+        <strong>Request Timestamp (Local):</strong>
+        <span id="request-local-timestamp"></span>
+      </p>
+
+      <!-- Download File Link -->
+      <p>
+        <strong>Uploaded Files:</strong>
+        {% if quote.file_url %}
+        <a href="{{ quote.file_url }}" class="btn btn-primary" download>Download Files</a>
+        {% endif %}
+      </p>
+
+      <p><strong>Status:</strong> {{ quote.status|default:"Pending" }}</p>
+
+      <!-- Report Link -->
+      <p>
+        <strong>Report:</strong>
+        {% if quote.finish_timestamp %}
+        <a href="{{ quote.report }}" class="btn btn-primary" download>Download Report</a>
+        {% else %}
+        <span class="text-muted">Not yet ready</span>
+        {% endif %}
+      </p>
+
+      <!-- Finish Timestamp (UTC and Local) -->
+      {% if quote.finish_timestamp %}
+      <p hidden>
+        <strong>Finish Date (UTC):</strong>
+        <span id="finish-utc-timestamp">{{ quote.finish_timestamp|date:"Y-m-d H:i:s" }}</span>
+      </p>
+      <p>
+        <strong>Finish Date (Local):</strong>
+        <span id="finish-local-timestamp"></span>
+      </p>
+      {% endif %}
+    </div>
+
+    <!-- JavaScript to Convert UTC Timestamps to Local Time -->
+    <script>
+      // Function to convert UTC timestamp to local time
+      function displayLocalTime(utcElementId, localElementId) {
+        const utcElement = document.getElementById(utcElementId);
+        if (utcElement) {
+          const utcTimestamp = utcElement.innerText;
+          const utcDate = new Date(utcTimestamp + " UTC"); // Ensure it's treated as UTC
+          const localDate = utcDate.toLocaleString();
+          const localElement = document.getElementById(localElementId);
+          if (localElement) {
+            localElement.innerText = localDate;
+          }
+        }
+      }
+
+      // Display local times for all timestamps
+      displayLocalTime("request-utc-timestamp", "request-local-timestamp");
+      displayLocalTime("finish-utc-timestamp", "finish-local-timestamp");
+    </script>
+</body>
+</html>
